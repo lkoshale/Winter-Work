@@ -27,5 +27,5 @@ for x in content[1:]:
     det = [y.get_text() for y in td]
     cList.append(det)
 
-# print len(content)
+# B len(content)
 printTable(cList)
