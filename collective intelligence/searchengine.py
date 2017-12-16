@@ -288,3 +288,4 @@ class searcher:
 		nnres=mynet.getresult(wordids,urlids)
 		scores=dict([(urlids[i],nnres[i]) for i in range(len(urlids))])
 		return self.normalizescores(scores)
+	
