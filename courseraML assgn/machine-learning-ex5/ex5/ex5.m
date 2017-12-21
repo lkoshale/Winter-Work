@@ -144,6 +144,7 @@ X_poly_test = bsxfun(@rdivide, X_poly_test, sigma);
 X_poly_test = [ones(size(X_poly_test, 1), 1), X_poly_test];         % Add Ones
 
 % Map X_poly_val and normalize (using mu and sigma)
+
 X_poly_val = polyFeatures(Xval, p);
 X_poly_val = bsxfun(@minus, X_poly_val, mu);
 X_poly_val = bsxfun(@rdivide, X_poly_val, sigma);
