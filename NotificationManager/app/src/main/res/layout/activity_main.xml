@@ -15,4 +15,29 @@
       android:text="notify"
       />
 
+  <Button
+      android:layout_gravity="center"
+      android:id="@+id/nListen"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="listen"/>
+
+
+  <Button
+      android:layout_margin="10dp"
+      android:id="@+id/stopService"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="stopListner"
+      android:layout_gravity="center"/>
+
+
+  <Button
+      android:layout_margin="10dp"
+      android:id="@+id/appList"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="AppList"
+      android:layout_gravity="center"/>
+
 </LinearLayout>
