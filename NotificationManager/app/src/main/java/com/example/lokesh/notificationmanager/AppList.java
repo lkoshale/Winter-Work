@@ -1,9 +1,12 @@
 package com.example.lokesh.notificationmanager;
 
+import android.content.ContentResolver;
+import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -32,6 +35,10 @@ public class AppList extends AppCompatActivity {
         setContentView(R.layout.activity_app_list);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        if(!isNotificationServiceRunning()){
+            startActivity(new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS"));
+        }
 
         setListData();
 
@@ -76,5 +83,24 @@ public class AppList extends AppCompatActivity {
                 : false;
     }
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(!isNotificationServiceRunning()){
+            startActivity(new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS"));
+        }
+    }
+
+    private boolean isNotificationServiceRunning() {
+        ContentResolver contentResolver = getContentResolver();
+
+        String enabledNotificationListeners = Settings.Secure.getString(contentResolver, "enabled_notification_listeners");
+
+        // Log.e("NOTFICATION LISTNER",enabledNotificationListeners);
+
+        String packageName = getPackageName();
+        return enabledNotificationListeners != null && enabledNotificationListeners.contains(packageName);
+    }
 
 }

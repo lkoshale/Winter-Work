@@ -19,6 +19,7 @@ import com.example.lokesh.notificationmanager.R;
 import com.example.lokesh.notificationmanager.Sqlite.AppContract;
 import com.example.lokesh.notificationmanager.Sqlite.DBHelper;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,13 +30,14 @@ public class AppListAdapter extends RecyclerView.Adapter<AppListAdapter.ViewHold
 
     private List<AppListData> mList;
     private Context context;
-
+    private List<String>bList;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView nameView;
         private Switch onOFF;
         private ImageView iconView;
+
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -46,8 +48,11 @@ public class AppListAdapter extends RecyclerView.Adapter<AppListAdapter.ViewHold
     }
 
     public AppListAdapter(List<AppListData> mList, Context context){
-        this.mList = mList;
         this.context = context;
+        this.bList = getBlockedPackageList();
+        this.mList = setONitemFirst(mList);
+
+
     }
 
     @Override
@@ -64,6 +69,13 @@ public class AppListAdapter extends RecyclerView.Adapter<AppListAdapter.ViewHold
         final AppListData data = mList.get(position);
         holder.nameView.setText(data.appName);
         holder.iconView.setImageDrawable(data.appIcon);
+
+        if(this.bList.contains(data.packageName)){
+            holder.onOFF.setChecked(true);
+           // Log.e("ON",data.packageName);
+        }else{
+            holder.onOFF.setChecked(false);
+        }
 
         final ViewHolder holder1 = holder;
 
@@ -87,7 +99,7 @@ public class AppListAdapter extends RecyclerView.Adapter<AppListAdapter.ViewHold
                             db.insert(AppContract.BlockedAppTable.TABLE_NAME,null,contentValues);
                         }
 
-                        db_handle.PrintTable(AppContract.BlockedAppTable.TABLE_NAME);
+                     //   db_handle.PrintTable(AppContract.BlockedAppTable.TABLE_NAME);
 
                     }
                     else{
@@ -99,7 +111,7 @@ public class AppListAdapter extends RecyclerView.Adapter<AppListAdapter.ViewHold
                                     " = \'"+data.packageName+"\'";
 
                             db.execSQL(delQuery);
-                            db_handle.PrintTable(AppContract.BlockedAppTable.TABLE_NAME);
+                           // db_handle.PrintTable(AppContract.BlockedAppTable.TABLE_NAME);
                         }
                     }
 
@@ -112,6 +124,41 @@ public class AppListAdapter extends RecyclerView.Adapter<AppListAdapter.ViewHold
         return mList.size();
     }
 
+    public List<String> getBlockedPackageList(){
+        List<String>bList = new ArrayList<>();
 
+        DBHelper dbHelper = new DBHelper(context);
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+
+        String rQuery = " SELECT * FROM "+ AppContract.BlockedAppTable.TABLE_NAME+" ";
+
+        Cursor cursor = db.rawQuery(rQuery,null);
+
+        while (cursor.moveToNext()){
+            String packagename = cursor.getString(cursor.getColumnIndex(AppContract.BlockedAppTable.COLUMN_PACKAGE_NAME));
+            bList.add(packagename);
+        }
+
+        dbHelper.PrintTable(AppContract.BlockedAppTable.TABLE_NAME);
+        return bList;
+    }
+
+    public List<AppListData> setONitemFirst(List<AppListData> data){
+        List<AppListData> d2 = new ArrayList<>();
+        List<AppListData> d3 = new ArrayList<>(data);
+
+        for( AppListData app : d3 ){
+            if( this.bList.contains(app.packageName)){
+                d2.add(app);
+            }
+        }
+
+
+
+        d3.removeAll(d2);
+        d2.addAll(d3);
+
+        return d2;
+    }
 
 }

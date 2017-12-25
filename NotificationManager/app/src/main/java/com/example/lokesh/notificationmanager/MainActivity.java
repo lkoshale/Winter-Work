@@ -2,10 +2,12 @@ package com.example.lokesh.notificationmanager;
 
 import android.app.Activity;
 import android.app.NotificationManager;
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.app.NotificationCompat;
@@ -35,6 +37,9 @@ public class MainActivity extends AppCompatActivity {
         appList = (Button)findViewById(R.id.appList);
 
         activity = this;
+
+
+
         notify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -70,13 +75,18 @@ public class MainActivity extends AppCompatActivity {
 //get a list of installed apps.
                 List<ApplicationInfo> packages = pm.getInstalledApplications(PackageManager.GET_META_DATA);
 
-                for (ApplicationInfo packageInfo : packages) {
-                    if(!isSystemPackage(packageInfo)) {
-                        Log.e("stop Button", "Installed package :" + packageInfo.packageName);
-                        Log.e("stop Button", "--name---- :" + getPackageManager().getApplicationLabel(packageInfo));
-                        Log.e("stop button", "Launch Activity :" + pm.getLaunchIntentForPackage(packageInfo.packageName));
-                    }
-                }
+//                for (ApplicationInfo packageInfo : packages) {
+//                    if(!isSystemPackage(packageInfo)) {
+//                        Log.e("stop Button", "Installed package :" + packageInfo.packageName);
+//                        Log.e("stop Button", "--name---- :" + getPackageManager().getApplicationLabel(packageInfo));
+//                        Log.e("stop button", "Launch Activity :" + pm.getLaunchIntentForPackage(packageInfo.packageName));
+//                    }
+//                }
+
+                startActivity(new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS"));
+
+                //Log.e("LISTNER RESP",String.valueOf(isNotificationServiceRunning()));
+
             }
         });
 
@@ -94,6 +104,11 @@ public class MainActivity extends AppCompatActivity {
         return ((applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) != 0) ? true
                 : false;
     }
+
+
+    //CHECK if notificationListnerservice iis enabled
+
+
 
 }
 
