@@ -1,4 +1,4 @@
-package com.example.lokesh.notificationmanager;
+package com.example.lokesh.notificationmanager.Service;
 
 import android.app.DownloadManager;
 import android.app.Notification;
@@ -69,7 +69,8 @@ public class ListnerService extends NotificationListenerService {
         }
 
 
-        Log.e("Service:","New notification , "+sbn.getNotification().tickerText+" -- "+sbn.getPackageName());
+        Log.e("Service: ","New notification , "+sbn.getNotification().tickerText+" -- "+sbn.getPackageName());
+        Log.e("Service: ","new notification "+sbn.getNotification().extras.getCharSequenceArray(Notification.EXTRA_TEXT).toString()+"  "+sbn.getNotification().extras.getCharSequenceArray(Notification.EXTRA_TITLE).toString() );
 
     }
 

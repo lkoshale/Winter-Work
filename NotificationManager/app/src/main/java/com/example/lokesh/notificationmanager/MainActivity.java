@@ -2,18 +2,16 @@ package com.example.lokesh.notificationmanager;
 
 import android.app.Activity;
 import android.app.NotificationManager;
-import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.app.NotificationCompat;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+
+import com.example.lokesh.notificationmanager.Service.ListnerService;
 
 import java.util.List;
 
@@ -23,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     private Activity activity;
     private Button Listner;
     private Button stopService,appList;
+
 
     Intent serviceIntent;
 
@@ -99,14 +98,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
-
-    private boolean isSystemPackage(ApplicationInfo applicationInfo) {
-        return ((applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) != 0) ? true
-                : false;
-    }
-
-
-    //CHECK if notificationListnerservice iis enabled
 
 
 
