@@ -115,6 +115,8 @@ public class AppListAdapter extends RecyclerView.Adapter<AppListAdapter.ViewHold
                         }
                     }
 
+                    db.close();
+                    db_handle.close();
                 }
             });
     }
@@ -139,7 +141,11 @@ public class AppListAdapter extends RecyclerView.Adapter<AppListAdapter.ViewHold
             bList.add(packagename);
         }
 
+        cursor.close();
+        db.close();
+
         dbHelper.PrintTable(AppContract.BlockedAppTable.TABLE_NAME);
+        dbHelper.close();
         return bList;
     }
 

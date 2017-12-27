@@ -57,6 +57,7 @@ public class DBHelper extends SQLiteOpenHelper {
             tablestr+="\n";
         }
 
+        cursor.close();
         Log.e("PrintTable ",tablestr);
     }
 

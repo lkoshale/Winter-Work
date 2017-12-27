@@ -92,7 +92,7 @@ public class AppList extends AppCompatActivity {
         }
     }
 
-    private boolean isNotificationServiceRunning() {
+    public boolean isNotificationServiceRunning() {
         ContentResolver contentResolver = getContentResolver();
 
         String enabledNotificationListeners = Settings.Secure.getString(contentResolver, "enabled_notification_listeners");
