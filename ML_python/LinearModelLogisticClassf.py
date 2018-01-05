@@ -9,7 +9,7 @@ import mglearn
 # else:
 
 Gshow = False
-#Gshow = True
+Gshow = True
 
 from sklearn.linear_model import LogisticRegression
 from sklearn.svm import LinearSVC
