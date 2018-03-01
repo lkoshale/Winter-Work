@@ -4,8 +4,6 @@ import pandas as pd
 train = pd.read_csv('train.csv')
 test = pd.read_csv('test.csv')
 
-print train.shape
-print test.shape
 
 train.info()
 #print  train.head()
@@ -56,6 +54,6 @@ for x in train.columns:
         train[x] = lbl.transform(list(train[x].values))
 
 
-print  train.head()
+print (train.head())
 #print train.target.value_counts()
 

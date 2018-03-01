@@ -28,8 +28,8 @@ from sklearn.svm import LinearSVC
 lr = LinearRegression()
 lr.fit(X,y)
 
-print lr.coef_
-print lr.intercept_
+print(lr.coef_)
+print( lr.intercept_)
 
 xi = np.arange(12)
 yi = xi*lr.coef_ +lr.intercept_
@@ -44,8 +44,8 @@ y = (b[:,1]).reshape(54,1)
 
 lr.fit(X,y)
 
-print lr.coef_
-print lr.intercept_
+print (lr.coef_)
+print (lr.intercept_)
 
 xi = np.arange(12)
 yi = xi*lr.coef_ +lr.intercept_
