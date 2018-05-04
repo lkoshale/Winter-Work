@@ -1,0 +1,16 @@
+
+{% extends 'polls/base.html' %}
+
+{% block main_content %}
+
+{% if qlist %}
+    <ul>
+        {% for q in qlist %}
+        <li> <a href= {% url "polls:details" q.id %}> <b> {{q.question_text}}</b></a> </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p> No questions </p>
+{% endif %}
+
+{% endblock %}
